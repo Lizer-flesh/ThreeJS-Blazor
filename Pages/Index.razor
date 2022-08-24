@@ -1,0 +1,26 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+
+<div id="threejscontainer" style="width: 800px; height: 500px;"></div>
+<div>
+    <button type="button" class="btn btn-primary" @onclick="Stop">
+        Stop
+    </button>
+    <button type="button" class="btn btn-primary" @onclick="Dance">
+        Dance
+    </button>
+</div>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+      await JSRuntime.InvokeVoidAsync("ThreeJSFunctions.load");
+    }
+    public async Task Stop()
+    {
+      await JSRuntime.InvokeVoidAsync("ThreeJSFunctions.stop");
+    }
+    public async Task Dance()
+    {
+      await JSRuntime.InvokeVoidAsync("ThreeJSFunctions.start");
+    }
+}
